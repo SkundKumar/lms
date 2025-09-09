@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button } from '@/components/ui/button'
-import { CrowdCanvas, Skiper39 } from '@/components/ui/skiper-ui/skiper39'
+import { CrowdCanvas } from '@/components/ui/skiper-ui/skiper39'
 import PixelCard from '@/components/PixelCard'
 
 const Page = () => {

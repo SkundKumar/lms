@@ -195,13 +195,17 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 
     const initCrowd = () => {
       while (availablePeeps.length) {
-        addPeepToCrowd().walk.progress(Math.random());
+        const peep = addPeepToCrowd();
+        if (peep.walk) {
+          peep.walk.progress(Math.random());
+        }
       }
     };
 
     const addPeepToCrowd = () => {
       const peep = removeRandomFromArray(availablePeeps);
-      const walk = getRandomFromArray(walks)({
+      const walkFunction = getRandomFromArray(walks);
+      const walk = walkFunction({
         peep,
         props: resetPeep({
           peep,
@@ -275,7 +279,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
         if (peep.walk) peep.walk.kill();
       });
     };
-  }, []);
+  }, [src, rows, cols]);
   return (
     <canvas ref={canvasRef} className="absolute bottom-0 h-[90vh] w-full" />
   );

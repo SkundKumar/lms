@@ -24,12 +24,14 @@ type Peep = {
   render: (ctx: CanvasRenderingContext2D) => void;
 };
 
+type WalkFunction = (params: { peep: Peep; props: { startY: number; endX: number } }) => gsap.core.Timeline;
+
 const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || typeof window === 'undefined') return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -43,13 +45,13 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     // UTILS
     const randomRange = (min: number, max: number) =>
       min + Math.random() * (max - min);
-    const randomIndex = (array: any[]): number => randomRange(0, array.length) | 0;
-    const removeFromArray = (array: any[], i: number): any => array.splice(i, 1)[0];
-    const removeItemFromArray = (array: any[], item: any): any =>
+    const randomIndex = (array: unknown[]): number => randomRange(0, array.length) | 0;
+    const removeFromArray = (array: Peep[], i: number): Peep => array.splice(i, 1)[0];
+    const removeItemFromArray = (array: Peep[], item: Peep): Peep =>
       removeFromArray(array, array.indexOf(item));
-    const removeRandomFromArray = (array: any[]): any =>
+    const removeRandomFromArray = (array: Peep[]): Peep =>
       removeFromArray(array, randomIndex(array));
-    const getRandomFromArray = (array: any[]): any => array[randomIndex(array) | 0];
+    const getRandomFromArray = (array: WalkFunction[]): WalkFunction => array[randomIndex(array) | 0];
 
     // TWEEN FACTORIES
     const resetPeep = ({ stage, peep }: { stage: { width: number; height: number }; peep: Peep }) => {
@@ -74,14 +76,13 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       peep.anchorY = startY;
 
       return {
-        startX,
         startY,
         endX,
       };
     };
 
-    const normalWalk = ({ peep, props }: { peep: Peep; props: { startX: number; startY: number; endX: number } }) => {
-      const { startX, startY, endX } = props;
+    const normalWalk = ({ peep, props }: { peep: Peep; props: { startY: number; endX: number } }) => {
+      const { startY, endX } = props;
       const xDuration = 10;
       const yDuration = 0.25;
 
@@ -110,7 +111,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       return tl;
     };
 
-    const walks = [normalWalk];
+    const walks: WalkFunction[] = [normalWalk];
 
     // FACTORY FUNCTIONS
     const createPeep = ({
@@ -233,7 +234,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       if (!canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
-      ctx.scale(devicePixelRatio, devicePixelRatio);
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
       crowd.forEach((peep) => {
         peep.render(ctx);
@@ -243,11 +244,11 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     };
 
     const resize = () => {
-      if (!canvas) return;
+      if (!canvas || typeof window === 'undefined') return;
       stage.width = canvas.clientWidth;
       stage.height = canvas.clientHeight;
-      canvas.width = stage.width * devicePixelRatio;
-      canvas.height = stage.height * devicePixelRatio;
+      canvas.width = stage.width * window.devicePixelRatio;
+      canvas.height = stage.height * window.devicePixelRatio;
 
       crowd.forEach((peep) => {
         if (peep.walk) peep.walk.kill();

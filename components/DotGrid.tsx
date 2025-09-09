@@ -93,7 +93,7 @@ const DotGrid: React.FC<DotGridProps> = ({
   const buildGrid = useCallback(() => {
     const wrap = wrapperRef.current;
     const canvas = canvasRef.current;
-    if (!wrap || !canvas) return;
+    if (!wrap || !canvas || typeof window === 'undefined') return;
 
     const { width, height } = wrap.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -176,6 +176,8 @@ const DotGrid: React.FC<DotGridProps> = ({
   }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     buildGrid();
     let ro: ResizeObserver | null = null;
     if ('ResizeObserver' in window) {
@@ -188,11 +190,13 @@ const DotGrid: React.FC<DotGridProps> = ({
     }
     return () => {
       if (ro) ro.disconnect();
-      else window.removeEventListener('resize', buildGrid);
+      else (window as Window).removeEventListener('resize', buildGrid);
     };
   }, [buildGrid]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const onMove = (e: MouseEvent) => {
       const now = performance.now();
       const pr = pointerRef.current;

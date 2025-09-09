@@ -37,7 +37,7 @@ export default function RootLayout({
   />
 </div>
         <ConditionalNavbar />
-        <div className="sm:pl-20 sm:pr-20 pl-2 pr-2">
+        <div className="">
 
         {children}
         </div>

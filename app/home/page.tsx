@@ -17,7 +17,7 @@ const page = () => {
         <section className='flex gap-4 justify-between items-start w-full max-lg:flex-col-reverse max-lg:items-center' >
           <CompanionsList/>
           <SpotlightCard className="custom-spotlight-card text-white" spotlightColor="rgba(0, 229, 255, 0.2)">
-  // Content goes here
+            {/* Content goes here */}
           </SpotlightCard>
         </section>
     </div>

@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import PillNav from './PillNav';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 const ConditionalNavbar = () => {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ const ConditionalNavbar = () => {
           { label: 'Home', href: '/home' },
           { label: 'Companions', href: '/companions' },
           { label: 'My Journey', href: '/my-journey' },
-          { label: 'Sign In', href: '/sign-in' }
+          
         ]}
         activeHref={pathname}
         className="custom-nav"
@@ -32,7 +33,17 @@ const ConditionalNavbar = () => {
         hoveredPillTextColor="#ffffff"
         pillTextColor="#000000"
       />
-      <div className="pt-20" />
+      <div className="pt-20 flex items-center justify-center gap-3">
+        <SignedOut>
+          <SignInButton>
+            <button className="px-4 py-1 cursor-crosshair rounded-full bg-white text-black text-sm font-medium">Sign in</button>
+          </SignInButton>
+          
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </>
   );
 };

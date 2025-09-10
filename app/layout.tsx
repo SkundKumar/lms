@@ -3,6 +3,14 @@ import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import DotGrid from "@/components/DotGrid";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -20,10 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <ClerkProvider>
+      <html lang="en">
       <body className={`${bricolage.variable} antialiased`}>
         <div className="relative min-h-screen" >
-      <div className="absolute inset-0 -z-10 ">
+      <div className="absolute inset-0 -z-1 ">
   <DotGrid
     dotSize={3}
     gap={18}
@@ -37,12 +46,13 @@ export default function RootLayout({
   />
 </div>
         <ConditionalNavbar />
-        <div className="">
+        <div >
 
         {children}
         </div>
         </div>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

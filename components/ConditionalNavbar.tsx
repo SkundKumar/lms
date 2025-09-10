@@ -36,7 +36,7 @@ const ConditionalNavbar = () => {
       <div className="pt-20 flex items-center justify-center gap-3">
         <SignedOut>
           <SignInButton>
-            <button className="px-4 py-1 cursor-crosshair rounded-full bg-white text-black text-sm font-medium">Sign in</button>
+            <button className="px-4 py-1 cursor-crosshair rounded-full bg-white border-1 hover:border-black transition-all duration-500 shadow-md shadow-zinc-900 text-black text-sm font-medium">Sign in</button>
           </SignInButton>
           
         </SignedOut>

@@ -1,6 +1,12 @@
-import CompanionForm from "@/components/CompanionForm"
+'use server'
 
-const NewCompanion = () => {
+import CompanionForm from "@/components/CompanionForm"
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
+const NewCompanion = async () => {
+  const{userId} = await auth();
+  if(!userId) redirect(('/sign-in'))
   
   return (
     <div className='w-full flex flex-col items-center justify-center'  >

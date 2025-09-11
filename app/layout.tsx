@@ -5,11 +5,7 @@ import ConditionalNavbar from "@/components/ConditionalNavbar";
 import DotGrid from "@/components/DotGrid";
 import {
   ClerkProvider,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
+ 
 } from "@clerk/nextjs";
 
 const bricolage = Bricolage_Grotesque({

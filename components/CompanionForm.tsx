@@ -34,33 +34,33 @@ const CompanionForm = () => {
      
 const formSchema = z.object({
     name: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "Name must be at least 2 characters.",
     }),
-    subject: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+    subject: z.string().min(1, {
+      message: "Please select a subject.",
     }),
     topic: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "Topic must be at least 2 characters.",
     }),
-    voice: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+    voice: z.string().min(1, {
+      message: "Please select a voice.",
     }),
-    style: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+    style: z.string().min(1, {
+      message: "Please select a style.",
     }),
-    duration: z.coerce.number().min(1, {
-      message: "Username must be at least 2 characters.",
+    duration: z.number().min(1, {
+      message: "Duration must be at least 1 minute.",
     }),
   })
   
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        name: " ",
-        subject: " ",
-        topic: " ",
-        voice: " ",
-        style: " ",
+        name: "",
+        subject: "",
+        topic: "",
+        voice: "",
+        style: "",
         duration: 15 
       },
     })

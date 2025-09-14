@@ -59,7 +59,7 @@ const page = () => {
                       >
                       Build and personalise learning companion
                   </ScrambledText>
-            <p className='mt-4 text-center text-sm text-white/60 mb-4' >"Pick a name, subject, voice, & personality - and start learning through voice conversation that feels natural and fun"
+            <p className='mt-4 text-center text-sm text-white/60 mb-4' >&quot;Pick a name, subject, voice, &amp; personality - and start learning through voice conversation that feels natural and fun&quot;
             </p>
               <Image src='images/cta.svg' alt='sd' width={362} height={232}/>
               <button className='flex gap-2 mt-12 border-1 p-2 rounded-full hover:p-3 transition-all duration-300 ease-in-out '>

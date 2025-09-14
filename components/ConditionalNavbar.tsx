@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import PillNav from './PillNav';
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 const ConditionalNavbar = () => {
   const pathname = usePathname();
